@@ -43,7 +43,6 @@ fs.mkdir(assetsPath, function(err){
 
 //insert in .html the full blocks of code
 
-
 //FULL AND DEEP COPY OF ASSETS
 
 function deepCopy(from, to){
@@ -75,9 +74,28 @@ function deepCopy(from, to){
             })
         })
     }
-                    
-
-
-
 
 deepCopy(path.resolve(rootPath, 'assets'), path.resolve(rootPath, 'project-dist', 'assets'))
+
+
+
+/*
+fs.createReadStream(path.resolve(rootPath, 'template.html')).on('data', (data) => {
+    let template = data.toString();
+  
+    fs.readdir(path.resolve(rootPath, 'components')).then((files) => {
+        files.forEach((file) => {
+            const filePath = path.join(__dirname, file);
+            const basename = path.basename(filePath);
+            const fileName = path.basename(filePath).replace(path.extname(filePath), '');
+    
+            fs.createReadStream(path.join(__dirname, 'components', basename)).on('data', (data) => {
+              const htmlPath = path.join(__dirname, 'project-dist', 'index.html');
+              const writter = fs.createWriteStream(htmlPath);
+              template = template.replace('{{' + fileName + '}}', data.toString());
+              writter.write(template);
+            });
+          });
+      });
+  });
+  */
